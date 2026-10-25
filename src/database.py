@@ -75,3 +75,24 @@ def get_latest_date(ticker):
     connection.close()
 
     return latest_date
+
+
+
+def get_stock_symbols():
+    connection = get_connection()
+
+    query = """
+        SELECT trading_symbol
+        FROM dim_stock
+        ORDER BY trading_symbol;
+    """
+
+    cursor = connection.cursor()
+    cursor.execute(query)
+
+    symbols = [row[0] for row in cursor.fetchall()]
+
+    cursor.close()
+    connection.close()
+
+    return symbols

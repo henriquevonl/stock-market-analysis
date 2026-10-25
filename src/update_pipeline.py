@@ -21,3 +21,14 @@ def update_stock(ticker):
     insert_stock_data(new_data)
 
     print(f"{ticker}: database updated.")
+
+
+
+if __name__ == "__main__":
+    tickers = ["MSFT", "AAPL", "JPM", "JNJ", "XOM", "WMT"]
+
+    for ticker in tickers:
+        try:
+            update_stock(ticker)
+        except Exception as e:
+            print(f"Error updating {ticker}: {e}")
