@@ -1,68 +1,42 @@
 # Stock Market Analysis | Python, PostgreSQL & Power BI
 
-An end-to-end financial data analytics project that automates stock market data collection, stores historical prices in PostgreSQL, and visualizes financial performance through interactive Power BI dashboards.
-
-## Project Overview
-
-This project analyzes stock performance across six sectors: Technology, Consumer, Financials, Industrials, Energy, and Healthcare.
-
-Using Python, PostgreSQL, and Power BI, the project combines data collection, database management, financial analysis, and business intelligence into a single workflow.
-
-### Key Features
-
-- **Automated Data Collection:** Retrieves historical stock data through the [FinancialData.net Stock Prices API](https://financialdata.net/api/v1/stock-prices).
-- **ETL Pipeline:** Processes financial data and stores it in PostgreSQL.
-- **Incremental Updates:** Retrieves new records for existing companies and historical data for newly added companies.
-- **Automated Execution:** Uses Windows Task Scheduler to run daily database updates.
-- **Financial Analysis:** Calculates annualized returns, volatility, Sharpe ratio, and maximum drawdown.
-- **Interactive Dashboard:** Power BI report with Overview, Sector, and Company views.
+## Overview
+An end-to-end data analytics project analyzing historical stock market data from **20 companies across 6 sectors**. The project uses Python for data extraction and processing, PostgreSQL for storage and analysis, and Power BI for visualization.
 
 ## Technologies
-
 - **Python:** Pandas, Requests
 - **Database:** PostgreSQL, SQL
-- **Business Intelligence:** Power BI, DAX
+- **Visualization:** Power BI, DAX
+- **Automation:** Windows Task Scheduler
 - **Data Source:** FinancialData.net API
 
+## ETL Pipeline
+1. **Extract:** Retrieve historical stock prices through an API.
+2. **Transform:** Process data, check missing values and duplicates, validate prices, and correct 8 OHLC inconsistencies.
+3. **Load:** Store data in PostgreSQL with constraints to prevent duplicate stock-date records.
+4. **Update:** Fetch new records for existing companies and historical data for newly added companies.
+5. **Automate:** Schedule daily pipeline execution.
 
-### 1. Clone the repository
+## Data Quality
+- **25,420 records** across 20 companies.
+- No duplicate rows in the analyzed datasets.
+- No negative prices or trading volumes.
+- 8 OHLC inconsistencies manually corrected. These corrections improve internal consistency but are not independently verified against original market data.
 
-```bash
-git clone <YOUR_GITHUB_REPOSITORY_URL>
-cd stock-market-analysis
-```
-
-### 2. Set up the environment
-
-```powershell
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-pip install -r requirements.txt
-```
-
-### 3. Configure the project
-
-- Set up PostgreSQL and the required database table.
-- Configure your API key and database credentials in a local `.env` file.
-
-### 4. Run the pipeline
-
-```powershell
-python -m src.update_pipeline
-```
-
-The pipeline automatically loads historical data for new companies and updates existing records.
+## PostgreSQL Analysis
+SQL views calculate:
+- Daily and cumulative returns
+- Annualized return and volatility
+- Sharpe ratio
+- Running maximum price and drawdown
 
 ## Power BI Dashboard
+The interactive dashboard includes three views:
+- **Overview:** Compare company performance.
+- **Sector Analysis:** Explore performance by sector.
+- **Company Analysis:** Examine individual stocks.
 
-The report provides three interactive views:
+<img width="582" height="331" alt="image" src="https://github.com/user-attachments/assets/8aaac1f7-01f7-4c7c-a7af-ffad89e001fb" />
 
-- **Overview:** High-level performance comparisons.
-- **Sector Analysis:** Comparisons across industry sectors.
-- **Company Analysis:** Individual stock performance.
 
-<img width="590" height="337" alt="image" src="https://github.com/user-attachments/assets/e99bff95-ebe1-4e0b-ae01-d98a2241dc71" />
-
----
-
-*Disclaimer: This project is for educational and analytical purposes only and does not constitute investment advice.*
+*Disclaimer: This project is for educational purposes and does not constitute financial advice.*
